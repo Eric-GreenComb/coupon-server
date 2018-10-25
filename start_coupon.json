@@ -1,0 +1,15 @@
+{
+    "apps": [{
+        "name": "coupon_server",
+        "cwd": "./",
+        "script": "start_coupon.sh",
+        "exec_interpreter": "bash",
+        "min_uptime": "60s",
+        "max_restarts": 30,
+        "exec_mode": "fork",
+        "error_file": "./tmp/coupon_server-err.log",
+        "out_file": "./tmp/coupon_server-out.log",
+        "pid_file": "./tmp/coupon_server.pid",
+        "watch": false
+    }]
+}
