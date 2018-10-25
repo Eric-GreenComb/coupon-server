@@ -4,22 +4,40 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/Eric-GreenComb/coupon-server/bean"
 )
 
-// GetHelloJWT GetHelloJWT
-func GetHelloJWT(c *gin.Context) {
-	_userID := c.MustGet("userID")
+// GetHelloAPI GetHelloAPI
+func GetHelloAPI(c *gin.Context) {
+	var _formParams bean.FormParams
+	err := c.BindJSON(&_formParams)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
-		"sub":  _userID,
-		"text": "Get Hello",
+		"id":   _formParams.ID,
+		"name": _formParams.Name,
 	})
 }
 
-// PostHelloJWT PostHelloJWT
-func PostHelloJWT(c *gin.Context) {
-	_userID := c.MustGet("userID")
+// PostHelloAPI PostHelloAPI
+func PostHelloAPI(c *gin.Context) {
+	var _formParams bean.FormParams
+	err := c.BindJSON(&_formParams)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
-		"sub":  _userID,
-		"text": "Post Hello",
+		"id":   _formParams.ID,
+		"name": _formParams.Name,
 	})
 }

@@ -45,32 +45,37 @@ func main() {
 		r0.POST("admin/login", AdminLogin)
 	}
 
+	r1 := router.Group("/")
+	r1.Use(JWTAuth())
+	{
+		r1.GET("refresh_token", RefreshToken)
+	}
+
 	// api
-	r1 := router.Group("/api/v1")
+	r2 := router.Group("/api/v1")
 	{
 		// 用户
-		r1.POST("/user/create", handler.CreateUser)
-		r1.GET("/user/:userid", handler.UserInfo)
-		r1.POST("/user/updatepwd", handler.UpdateUserPasswd)
-		r1.GET("/users/list/:page/:search", handler.ListUser)
-		r1.GET("/users/count", handler.CountUser)
+		r2.POST("/user/create", handler.CreateUser)
+		r2.GET("/user/:userid", handler.UserInfo)
+		r2.POST("/user/updatepwd", handler.UpdateUserPasswd)
+		r2.GET("/users/list/:page/:search", handler.ListUser)
+		r2.GET("/users/count", handler.CountUser)
 	}
 
 	// admin api
-	r2 := router.Group("/api/admin/v1")
+	r3 := router.Group("/api/admin/v1")
 	{
-		r2.POST("/user/create", handler.CreateAdminUser)
-		r2.GET("/user/:userid", handler.AdminUserInfo)
-		r2.POST("/user/updatepwd", handler.UpdateAdminUserPasswd)
+		r3.POST("/user/create", handler.CreateAdminUser)
+		r3.GET("/user/:userid", handler.AdminUserInfo)
+		r3.POST("/user/updatepwd", handler.UpdateAdminUserPasswd)
 	}
 
-	// auth api
-	r100 := router.Group("/api/auth/v1")
+	// jwt api
+	r100 := router.Group("/api/jwt/v1")
 	r100.Use(JWTAuth())
 	{
-		r100.GET("/hello", handler.GetHelloJWT)
-		r100.POST("/hello", handler.PostHelloJWT)
-		r100.GET("/refresh_token", RefreshToken)
+		r100.GET("/hello", handler.GetHelloAPI)
+		r100.POST("/hello", handler.GetHelloAPI)
 	}
 
 	// wechat api signed
@@ -79,6 +84,15 @@ func main() {
 	{
 		r101.GET("/hello", handler.GetHelloAPI)
 		r101.POST("/hello", handler.PostHelloAPI)
+	}
+
+	// wechat api signed
+	r102 := router.Group("/api/more/v1")
+	r102.Use(JWTAuth())
+	r102.Use(APIAuth())
+	{
+		r102.GET("/hello", handler.GetHelloAPI)
+		r102.POST("/hello", handler.PostHelloAPI)
 	}
 
 	for _, _port := range config.Server.Port {

@@ -125,7 +125,13 @@ func JWTAuth() gin.HandlerFunc {
 // RefreshToken RefreshToken
 func RefreshToken(c *gin.Context) {
 
-	_userID := c.MustGet("userID")
+	var _userFarams bean.UserParams
+	if c.BindJSON(&_userFarams) != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": "bind json error."})
+		return
+	}
+
+	_userID := _userFarams.UserID
 	expire := time.Now().Add(config.JWT.ExpireTime)
 
 	// Create the token
