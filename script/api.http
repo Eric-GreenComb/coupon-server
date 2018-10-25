@@ -1,0 +1,142 @@
+################################################################
+######
+######    base section
+######
+################################################################
+
+### health
+GET http://127.0.0.1:4000/health
+Content-Type: application/json
+
+{
+}
+
+################################################################
+######
+######    user section
+######
+################################################################
+
+### /api/v1/user/create
+POST http://127.0.0.1:4000/api/v1/user/create
+Content-Type: application/json
+
+{
+    "userid":"13810167616",
+    "name":"张老师",
+    "pwd":"a11111",
+    "email":"ministor@126.com"
+}
+
+### /api/v1/user/:userid
+GET http://127.0.0.1:4000/api/v1/user/13810167616
+Content-Type: application/json
+
+{
+
+}
+
+### /api/v1/user/updatepwd
+POST http://127.0.0.1:4000/api/v1/user/updatepwd
+Content-Type: application/json
+
+{
+    "userid":"13810167616",
+    "oldpwd":"a11112",
+    "pwd":"a11111"
+}
+
+### /api/v1/users/list/:page/:search page(0,1都是1)，:search如果为nil，则没有关键词
+GET http://127.0.0.1:4000/api/v1/users/list/1/nil
+Content-Type: application/json
+
+{
+
+}
+
+### /api/v1/users/count
+GET http://127.0.0.1:4000/api/v1/users/count
+Content-Type: application/json
+
+{
+
+}
+
+### /login
+POST http://127.0.0.1:4000/login
+Content-Type: application/json
+
+{
+    "userid":"13810167616",
+    "pwd":"a11111"
+}
+
+################################################################
+######
+######    admin section
+######
+################################################################
+
+### /api/admin/v1/user/create
+POST http://127.0.0.1:4000/api/admin/v1/user/create
+Content-Type: application/json
+
+{
+    "userid":"13810167616",
+    "name":"张老师",
+    "pwd":"a11111",
+    "email":"ministor@126.com"
+}
+
+### /api/admin/v1/user/:userid
+GET http://127.0.0.1:4000/api/admin/v1/user/13810167616
+Content-Type: application/json
+
+{
+
+}
+
+### /api/admin/v1/user/updatepwd
+POST http://127.0.0.1:4000/api/admin/v1/user/updatepwd
+Content-Type: application/json
+
+{
+    "userid":"13810167616",
+    "oldpwd":"a11112",
+    "pwd":"a11111"
+}
+
+### /admin/login
+POST http://127.0.0.1:4000/admin/login
+Content-Type: application/json
+
+{
+    "userid":"13810167616",
+    "pwd":"a11111"
+}
+
+################################################################
+######
+######    test use section
+######
+################################################################
+
+### GetAPIHello
+GET http://127.0.0.1:4000/api/wechat/v1/hello
+Content-Type: application/json
+
+{
+    "id":"123",
+    "name":"eric",
+    "signed":"3c41117cb2dfdf70000840abd381646a"
+}
+
+### POSTAPIHello
+POST http://127.0.0.1:4000/api/wechat/v1/hello
+Content-Type: application/json
+
+{
+    "id":"123",
+    "name":"eric1",
+    "signed":"0a8104fffb8ffb266fcde37b9b93574d"
+}
